@@ -8,7 +8,7 @@ var express = require('express'),
 	users = require('./routes/users'),
 	// auth = require('./routes/auth');
 	portal = require('./routes/portal'),
-	//events = require('./routes/events'),
+	events = require('./routes/events'),
 	account = require('./lib/account');
 
 // express config
@@ -87,7 +87,7 @@ if (everyauth.loggedIn) { // if logged in
 	app.get('/help', portal.help);
   app.get('/share', portal.share);
 	// EVENTS ... ideally, pull from eventbrite, yay!
-	//app.get('/events', events.findAll);
+	app.get('/events', events.findAll);
 /*
 } else { // user not logged in
 	app.get('/', auth.login)
