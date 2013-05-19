@@ -1,11 +1,10 @@
-var mongo = require('mongodb');
- 
-var Server = mongo.Server,
+var mongo = require('mongodb'),
+	Server = mongo.Server,
     Db = mongo.Db,
-    BSON = mongo.BSONPure;
- 
-var server = new Server('localhost', 27017, {auto_reconnect: true, w: 1});
-db = new Db('dressforsuccess', server);
+    BSON = mongo.BSONPure,
+    server = new Server('localhost', 27017, {auto_reconnect: true, w: 1}),
+    db = new Db('dressforsuccess', server),
+    account = require('../lib/account');
 
 db.open(function(err, db) {
 	if (!err) {
@@ -29,7 +28,24 @@ exports.findAll = function(req, res) {
 	});
 };
 
-exports.createUser = function(req, res) {
+var account = require('../lib/account');
+
+exports.createUser = function(req, res) { 
+	account.addNewAccount({
+		name: req.param('name'),
+		email: req.param('email'),
+		phone: req.param('phone'),
+		pass: req.param('password')
+	}, function(e) {
+		if (e) {
+			res.send(e, 400);
+		} else {
+			res.send('ok', 200);
+		}
+	});
+}
+
+/* exports.createUser = function(req, res) {
 	var user = req.body;
 	console.log(user);
 	db.collection('users', function(err, collection) {
@@ -42,4 +58,4 @@ exports.createUser = function(req, res) {
             }
         });
     });
-};
+}; */
