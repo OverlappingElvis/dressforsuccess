@@ -55,6 +55,7 @@ app.get('/', function(req, res){
 
 app.post('/login', users.login);
 app.get('/users', users.findAll);
+app.get('/users/get/:id', users.findById);
 
 // ADMIN routes - /users is internal, /admin is the UI wrapper
 app.get('/admin', admin.list);
