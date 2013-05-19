@@ -1,5 +1,5 @@
 var express = require('express'),
-	tropo = require('mongodb'),
+	tropo = require('tropo-webapi'),
 	app = express(),
 	users = require('./routes/users');
 	
@@ -9,7 +9,7 @@ app.get('/', function(req, res) {
 
 app.get('/users', users.findAll);
 app.get('/users/:id', users.findById);
-app.get('/users/create', users.create);
+app.post('/users', users.createUser);
 
 
 app.listen(3000);
