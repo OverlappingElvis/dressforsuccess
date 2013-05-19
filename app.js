@@ -1,6 +1,9 @@
 var express = require('express'),
 	tropo = require('tropo-webapi'),
 	everyauth = require('everyauth'),
+	consolidate = require('consolidate'),
+	handlebars = require('handlebars'),
+	fs = require('fs'),
 	app = express(),
 	users = require('./routes/users');
 	auth = require('./routes/auth');
@@ -8,12 +11,29 @@ var express = require('express'),
 	events = require('./routes/events');
 
 app.configure(function(){
+  // Use handlebars as template engine
+  app.engine("html", consolidate.handlebars);
+  app.set('views', __dirname + '/views');
+  app.set('view engine', 'handlebars');
   app.use(express.bodyParser());
+  app.use(express.methodOverride());
   app.use(app.router);
-});
+  app.use(express.static(__dirname + '/public'));
+  // Register partials
+  var partials = "./views/partials/";
+  fs.readdirSync(partials).forEach(function (file) {
+    var source = fs.readFileSync(partials + file, "utf8"),
+        partial = /(.+)\.html/.exec(file).pop();
+    Handlebars.registerPartial(partial, source);
+  });
 	
+});
+
 app.get('/', function(req, res) {
-	res.send('Share your Success');
+  res.render('index.html', {
+    title: 'Hey There, Title Test'
+  });
+  //res.send('Share your Success');
 });
 
 app.get('/users', users.findAll);
