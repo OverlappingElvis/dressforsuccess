@@ -29,19 +29,23 @@ exports.findAll = function(req, res) {
 };
 
 exports.createUser = function(req, res) { 
-	account.addNewAccount({
-		name: req.param('name'),
-		user: req.param('user'),
-		email: req.param('email'),
-		phone: req.param('phone'),
-		pass: req.param('password')
-	}, function(e) {
-		if (e) {
-			res.send(e, 400);
-		} else {
-			res.redirect('/');
-		}
-	});
+	if( req.params.id ) {
+		// we're doing an edit
+	}else{
+		account.addNewAccount({
+			name: req.param('name'),
+			user: req.param('user'),
+			email: req.param('email'),
+			phone: req.param('phone'),
+			pass: req.param('password')
+		}, function(e) {
+			if (e) {
+				res.send(e, 400);
+			} else {
+				res.redirect('/admin');
+			}
+		});
+	}
 };
 
 exports.login = function(req, res) {
