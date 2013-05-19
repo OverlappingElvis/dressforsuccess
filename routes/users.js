@@ -13,7 +13,7 @@ db.open(function(err, db) {
 
 exports.findById = function(req, res) {
 	var id = req.params.id;
-	db.collection('users', function(err, collection) {
+	db.collection('accounts', function(err, collection) {
 		collection.findOne({ '_id': new BSON.ObjectID(id) }, function(err, item) {
 			res.send(item);
 		});
@@ -21,7 +21,7 @@ exports.findById = function(req, res) {
 };
 
 exports.findAll = function(req, res) {
-	db.collection('users', function(err, collection) {
+	db.collection('accounts', function(err, collection) {
 		collection.find().toArray(function(err, items) {
 			res.send(items);
 		});
@@ -44,19 +44,4 @@ exports.createUser = function(req, res) {
 			res.send('ok', 200);
 		}
 	});
-}
-
-/* exports.createUser = function(req, res) {
-	var user = req.body;
-	console.log(user);
-	db.collection('users', function(err, collection) {
-        collection.insert(user, {safe:true}, function(err, result) {
-            if (err) {
-                res.send({'error':'An error has occurred'});
-            } else {
-                console.log('Success: ' + JSON.stringify(result[0]));
-                res.send(result[0]);
-            }
-        });
-    });
-}; */
+};
