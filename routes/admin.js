@@ -28,7 +28,7 @@ exports.list = function(req, res) {
   // dress for success staff should have access to create a profile
 	db.collection('accounts', function(err, collection) {
 		collection.find().toArray(function(err, items) {
-			res.send(items);
+			//res.send(items);
 			res.render('adminlist.html', {title: 'List Clients', users: items});
 		});
 	});
