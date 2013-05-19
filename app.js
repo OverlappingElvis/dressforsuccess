@@ -7,7 +7,10 @@ app.get('/', function(req, res) {
 	res.send('Hello, World!');
 });
 
+app.get('/users', users.findAll);
 app.get('/users/:id', users.findById);
+app.get('/users/create', users.create);
+
 
 app.listen(3000);
 

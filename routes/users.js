@@ -4,3 +4,11 @@ exports.findById = function(req, res) {
 		name: "Test"
 	});
 };
+
+exports.findAll = function(req, res) {
+	res.send('User list goes here');
+};
+
+exports.create = function(req, res) {
+	res.send('User creation goes here');	
+};
