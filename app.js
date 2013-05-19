@@ -34,30 +34,32 @@ app.configure(function(){
 	
 });
 
-/* app.get('/', function(req, res) {
-  res.render('index.html', {
-    title: 'Hey There, Title Test'
-  });
-}); */
-
 app.get('/', function(req, res){
 // check if the user's credentials are saved in a cookie //
 	if (!!req.cookies.user || !!req.cookies.pass) {
-		res.render('login', { title: 'Hello - Please Login To Your Account' });
-	}	else{
+		res.render('login.html', { title: 'Hello - Please Login To Your Account' });
+	} else {
 // attempt automatic login //
 		account.autoLogin(req.cookies.user, req.cookies.pass, function(o){
 			if (o != null){
 			    req.session.user = o;
 				res.redirect('/');
-			}	else{
-				res.render('login', { title: 'Hello - Please Login To Your Account' });
+			}else{
+				// res.render('login.html', { title: 'Hello - Please Login To Your Account' });
+				res.redirect('/home');
 			}
 		});
 	}
 });
 
 app.post('/signup', users.createUser);
+app.get('/signup', function(req, res) {
+	res.render('signup.html', {title: 'Sign up'});
+});
+
+app.post('/login', users.login);
+
+app.get('/users', users.findAll);
 
 // express routes
 
