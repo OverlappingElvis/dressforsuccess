@@ -56,6 +56,8 @@ app.get('/signup', function(req, res) {
 	res.render('signup.html', {title: 'Sign up'});
 });
 
+app.post('/login', users.login);
+
 app.get('/users', users.findAll);
 
 // express routes

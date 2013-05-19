@@ -41,7 +41,13 @@ exports.createUser = function(req, res) {
 		if (e) {
 			res.send(e, 400);
 		} else {
-			res.send('ok', 200);
+			res.redirect('/');
 		}
 	});
 };
+
+exports.login = function(req, res) {
+	account.autoLogin(req.user, req.pass, function(result) {
+		!!result && res.redirect('/');
+	})
+}
