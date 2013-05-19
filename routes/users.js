@@ -5,11 +5,10 @@ var mongo = require('mongodb'),
 	server = new Server('localhost', 27017, { auto_reconnect: true}),
 	db = new Db('dressforsuccess', server);
 
-db.open(function err, db) {
+db.open(function(err, db) {
 	if (!err) {
-		console.log("Connected to 'dressforsuccess'");
 	}
-}
+});
 
 exports.findById = function(req, res) {
 	res.send({
@@ -19,7 +18,7 @@ exports.findById = function(req, res) {
 };
 
 exports.findAll = function(req, res) {
-	res.send('User list goes here');
+	// res.send('User list goes here');
 	db.collection('users', function(err, collection) {
 		collection.find().toArray(function(err, items) {
 			res.send(items);
@@ -28,6 +27,16 @@ exports.findAll = function(req, res) {
 };
 
 exports.createUser = function(req, res) {
+	var user = req.body;
+	console.log('adding: ' + JSON.stringify(user));
+	db.collection('users', function(err, results) {
+		db.insert(user, { safe: true }, function(err, results) {
+			res.send(result[0]);
+		});
+	});
+};
+
+/*exports.createUser = function(req, res) {
 	var user = req.body;
 	console.log('adding: ' + JSON.stringify(user));
 	db.collection('users', function(err, collection) {
@@ -39,4 +48,4 @@ exports.createUser = function(req, res) {
 				res.send(result[0]);
 		});
 	});
-};
+}; */
