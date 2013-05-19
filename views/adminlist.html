@@ -1,22 +1,24 @@
 {{> adminopen}}
-    <h1>{{title}}</h1>
-<table>
-	<th>
+<h1>{{title}}</h1>
+<table class="table table-striped">
+	<thead>
 		<tr>
+			<td></td>
 			<td>Name</td>
 			<td>Username</td>
 			<td>Email</td>
 			<td>Phone</td>
 			<td>date</td>
 		</tr>
-	</th>
-	<tbody>
-		{{#each users}}
+	</thead>
+	<tbody>	{{#each users}}
 		<tr>
+			<td><a href="/admin/edit/{{this._id}}"><button class="btn">Edit</button></a></td>
 			<td>{{this.name}}</td>
 			<td>{{this.user}}</td>
 			<td>{{this.email}}</td>
 			<td>{{this.phone}}</td>
+			<td>{{this.date}}</td>
 		</tr>
 		{{/each}}
 	</tbody>
