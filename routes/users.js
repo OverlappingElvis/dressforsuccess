@@ -4,7 +4,7 @@ var Server = mongo.Server,
     Db = mongo.Db,
     BSON = mongo.BSONPure;
  
-var server = new Server('localhost', 27017, {auto_reconnect: true});
+var server = new Server('localhost', 27017, {auto_reconnect: true, w: 1});
 db = new Db('dressforsuccess', server);
 
 db.open(function(err, db) {
