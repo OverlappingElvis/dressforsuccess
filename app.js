@@ -1,5 +1,6 @@
 var express = require('express'),
 	tropo = require('tropo-webapi'),
+	everyauth = require('everyauth'),
 	app = express(),
 	users = require('./routes/users');
 	auth = require('./routes/auth');
