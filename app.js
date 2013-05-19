@@ -19,6 +19,7 @@ app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'handlebars');
   app.use(express.bodyParser());
+  app.use(express.cookieParser());
   app.use(express.methodOverride());
   app.use(app.router);
 
@@ -41,11 +42,11 @@ app.configure(function(){
 
 app.get('/', function(req, res){
 // check if the user's credentials are saved in a cookie //
-	if (req.cookies.user == undefined || req.cookies.pass == undefined){
+	if (!!req.cookies.user || !!req.cookies.pass) {
 		res.render('login', { title: 'Hello - Please Login To Your Account' });
 	}	else{
 // attempt automatic login //
-		acount.autoLogin(req.cookies.user, req.cookies.pass, function(o){
+		account.autoLogin(req.cookies.user, req.cookies.pass, function(o){
 			if (o != null){
 			    req.session.user = o;
 				res.redirect('/');
@@ -89,8 +90,6 @@ if (everyauth.loggedIn) { // if logged in
 	app.get('/', auth.login)
 }
 */
-
-// authentication
 
 app.listen(3000);
 
