@@ -28,8 +28,6 @@ exports.findAll = function(req, res) {
 	});
 };
 
-var account = require('../lib/account');
-
 exports.createUser = function(req, res) { 
 	account.addNewAccount({
 		name: req.param('name'),
@@ -47,7 +45,7 @@ exports.createUser = function(req, res) {
 };
 
 exports.login = function(req, res) {
-	account.autoLogin(req.user, req.pass, function(result) {
+	account.manualLogin(req.user, req.pass, function(result) {
 		!!result && res.redirect('/');
 	})
 }

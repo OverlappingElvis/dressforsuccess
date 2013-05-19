@@ -45,7 +45,8 @@ app.get('/', function(req, res){
 			    req.session.user = o;
 				res.redirect('/');
 			}else{
-				res.render('login.html', { title: 'Hello - Please Login To Your Account' });
+				// res.render('login.html', { title: 'Hello - Please Login To Your Account' });
+				res.redirect('/home');
 			}
 		});
 	}
