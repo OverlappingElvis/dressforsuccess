@@ -3,6 +3,7 @@
 	"description": "Dress for Success Community Center",
 	"version": "0.0.1",
 	"dependencies": {
-		"express": "3.2.4"
+		"express": "3.2.4",
+		"tropo-webapi": "1.0.16"
 	}
 }
