@@ -7,37 +7,42 @@ var express = require('express'),
 	portal = require('./routes/portal');
 	events = require('./routes/events');
 
+// express config
+
 app.configure(function(){
   app.use(express.bodyParser());
   app.use(app.router);
 });
-	
-app.get('/', function(req, res) {
-	res.send('Share your Success');
-});
 
-app.get('/users', users.findAll);
-app.get('/users/:id', users.findById);
-app.post('/users', users.createUser);
+// express routes
 
-// if logged in:
-app.get('/', portal.home);
-// else
-app.get('/', auth.login);
+if (everyauth.loggedIn) { // if logged in
+	app.get('/', function(req, res) {
+		res.send('Share your Success');
+	});
 
-// AUTH & LOGIN
-app.get('/login', auth.login);
-app.post('/login', auth.login);
-app.get('/reset', auth.reset);
-app.post('/reset', auth.reset);
+	app.get('/users', users.findAll);
+	app.get('/users/:id', users.findById);
+	app.post('/users', users.createUser);
 
-// PORTAL ... these *could* be dynamic & simply load the jade template associated with the page?
-app.get('/home', portal.home);
-app.get('/resources', portal.resources);
-app.get('/help', portal.help);
+	app.get('/', portal.home);
 
-// EVENTS ... ideally, pull from eventbrite, yay!
-app.get('/events', events.findAll);
+	// AUTH & LOGIN
+	app.get('/login', auth.login);
+	app.post('/login', auth.login);
+	app.get('/reset', auth.reset);
+	app.post('/reset', auth.reset);
+
+	// PORTAL ... these *could* be dynamic & simply load the jade template associated with the page?
+	app.get('/home', portal.home);
+	app.get('/resources', portal.resources);
+	app.get('/help', portal.help);
+
+	// EVENTS ... ideally, pull from eventbrite, yay!
+	app.get('/events', events.findAll);
+} else { // user not logged in
+	app.get('/', auth.login)
+}
 
 app.listen(3000);
 
