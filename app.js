@@ -5,9 +5,9 @@ var express = require('express'),
 	handlebars = require('handlebars'),
 	fs = require('fs'),
 	app = express(),
-	users = require('./routes/users');
-	auth = require('./routes/auth');
-	portal = require('./routes/portal');
+	users = require('./routes/users'),
+	// auth = require('./routes/auth');
+	portal = require('./routes/portal'),
 	events = require('./routes/events');
 
 // express config
@@ -71,15 +71,6 @@ if (everyauth.loggedIn) { // if logged in
 */
 
 // authentication
-
-everyauth.password
-	.getLoginPath('/login')
-	.postLoginPath('/login')
-	.loginView('login')
-	.authenticate(function(login, password) {
-
-	})
-	.loginSuccessRedirect('/');
 
 app.listen(3000);
 
