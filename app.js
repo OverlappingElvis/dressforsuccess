@@ -8,7 +8,7 @@ var express = require('express'),
 	users = require('./routes/users'),
 	// auth = require('./routes/auth');
 	portal = require('./routes/portal'),
-	events = require('./routes/events'),
+	//events = require('./routes/events'),
 	account = require('./lib/account');
 
 // express config
@@ -29,7 +29,8 @@ app.configure(function(){
   fs.readdirSync(partials).forEach(function (file) {
     var source = fs.readFileSync(partials + file, "utf8"),
         partial = /(.+)\.html/.exec(file).pop();
-    Handlebars.registerPartial(partial, source);
+    console.log(partial+' - '+source);
+    handlebars.registerPartial(partial, source);
   });
 	
 });
@@ -78,14 +79,16 @@ if (everyauth.loggedIn) { // if logged in
 	app.post('/login', auth.login);
 	app.get('/reset', auth.reset);
 	app.post('/reset', auth.reset);
+*/
 
 	// PORTAL ... these *could* be dynamic & simply load the jade template associated with the page?
 	app.get('/home', portal.home);
 	app.get('/resources', portal.resources);
 	app.get('/help', portal.help);
-
+  app.get('/share', portal.share);
 	// EVENTS ... ideally, pull from eventbrite, yay!
-	app.get('/events', events.findAll);
+	//app.get('/events', events.findAll);
+/*
 } else { // user not logged in
 	app.get('/', auth.login)
 }
