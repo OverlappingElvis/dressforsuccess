@@ -44,6 +44,17 @@ if (everyauth.loggedIn) { // if logged in
 	app.get('/', auth.login)
 }
 
+// authentication
+
+everyauth.password
+	.getLoginPath('/login')
+	.postLoginPath('/login')
+	.loginView('login')
+	.authenticate(function(login, password) {
+
+	})
+	.loginSuccessRedirect('/');
+
 app.listen(3000);
 
 console.log('Starting server on 3000... http://localhost:3000/');
