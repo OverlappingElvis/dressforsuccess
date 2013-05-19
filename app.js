@@ -5,6 +5,11 @@ var express = require('express'),
 	auth = require('./routes/auth');
 	portal = require('./routes/portal');
 	events = require('./routes/events');
+
+app.configure(function(){
+  app.use(express.bodyParser());
+  app.use(app.router);
+});
 	
 app.get('/', function(req, res) {
 	res.send('Share your Success');

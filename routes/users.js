@@ -1,9 +1,11 @@
-var mongo = require('mongodb'),
-	Server = mongo.Server,
-	Db = mongo.Db,
-	BSON = mongo.BSONPure,
-	server = new Server('localhost', 27017, { auto_reconnect: true}),
-	db = new Db('dressforsuccess', server);
+var mongo = require('mongodb');
+ 
+var Server = mongo.Server,
+    Db = mongo.Db,
+    BSON = mongo.BSONPure;
+ 
+var server = new Server('localhost', 27017, {auto_reconnect: true});
+db = new Db('dressforsuccess', server);
 
 db.open(function(err, db) {
 	if (!err) {
@@ -12,13 +14,12 @@ db.open(function(err, db) {
 
 exports.findById = function(req, res) {
 	res.send({
-		id: req.params.id,
-		name: "Test"
+		id: req.params.id
 	});
 };
 
 exports.findAll = function(req, res) {
-	// res.send('User list goes here');
+	res.send('User list goes here');
 	db.collection('users', function(err, collection) {
 		collection.find().toArray(function(err, items) {
 			res.send(items);
@@ -28,24 +29,16 @@ exports.findAll = function(req, res) {
 
 exports.createUser = function(req, res) {
 	var user = req.body;
-	console.log('adding: ' + JSON.stringify(user));
-	db.collection('users', function(err, results) {
-		db.insert(user, { safe: true }, function(err, results) {
-			res.send(result[0]);
-		});
-	});
-};
-
-/*exports.createUser = function(req, res) {
-	var user = req.body;
-	console.log('adding: ' + JSON.stringify(user));
+	// console.log('adding: ' + JSON.stringify(user));
+	console.log(user);
 	db.collection('users', function(err, collection) {
-		db.collection.insert(user, { safe: true }, function(err, results) {
-			if (err) {
-				console.log('error adding user: ' + JSON.stringify(err));
-			} else {
-				console.log('added user: ' + JSON.stringify(results));
-				res.send(result[0]);
-		});
-	});
-}; */
+        collection.insert(user, {safe:true}, function(err, result) {
+            if (err) {
+                res.send({'error':'An error has occurred'});
+            } else {
+                console.log('Success: ' + JSON.stringify(result[0]));
+                res.send(result[0]);
+            }
+        });
+    });
+};
