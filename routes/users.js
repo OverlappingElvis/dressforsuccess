@@ -13,13 +13,15 @@ db.open(function(err, db) {
 });
 
 exports.findById = function(req, res) {
-	res.send({
-		id: req.params.id
+	var id = req.params.id;
+	db.collection('users', function(err, collection) {
+		collection.findOne({ '_id': new BSON.ObjectID(id) }, function(err, item) {
+			res.send(item);
+		});
 	});
 };
 
 exports.findAll = function(req, res) {
-	res.send('User list goes here');
 	db.collection('users', function(err, collection) {
 		collection.find().toArray(function(err, items) {
 			res.send(items);
@@ -29,7 +31,6 @@ exports.findAll = function(req, res) {
 
 exports.createUser = function(req, res) {
 	var user = req.body;
-	// console.log('adding: ' + JSON.stringify(user));
 	console.log(user);
 	db.collection('users', function(err, collection) {
         collection.insert(user, {safe:true}, function(err, result) {
