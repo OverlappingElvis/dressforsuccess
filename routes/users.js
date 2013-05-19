@@ -33,6 +33,7 @@ var account = require('../lib/account');
 exports.createUser = function(req, res) { 
 	account.addNewAccount({
 		name: req.param('name'),
+		user: req.param('user'),
 		email: req.param('email'),
 		phone: req.param('phone'),
 		pass: req.param('password')
