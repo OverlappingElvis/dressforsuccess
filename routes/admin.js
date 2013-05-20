@@ -6,7 +6,7 @@ var mongo = require('mongodb'),
     server = new Server('localhost', 27017, {auto_reconnect: true, w: 1}),
     db = new Db('dressforsuccess', server),
     account = require('../lib/account');
-db.open(function(err, db) {
+	db.open(function(err, db) {
 	if (!err) {
 	}
 });
