@@ -29,7 +29,7 @@ exports.findAll = function(req, res) {
 };
 
 exports.createUser = function(req, res) { 
-	if( req.param('id') ) {
+	if( req.param('id') != 0 ) {
 		// we're doing an edit
 		db.collection('accounts', function(err, collection) {
 			collection.save({

@@ -1,24 +1,31 @@
 {{> adminopen}}
 <h1>{{title}}</h1>
+<p>All clients imported from your clients database (eTapestry). Use this interface to confirm who has logins
+to your community center and view recent activity.</p>
+
 <table class="table table-striped">
 	<thead>
 		<tr>
 			<td></td>
+			<td>eTapestry</td>
 			<td>Name</td>
 			<td>Username</td>
 			<td>Email</td>
 			<td>Phone</td>
-			<td>date</td>
+			<td>Date</td>
+			<td>Last Activity</td>
 		</tr>
 	</thead>
 	<tbody>	{{#each users}}
 		<tr>
 			<td><a href="/admin/edit/{{this._id}}"><button class="btn">Edit</button></a></td>
+			<td>eTapestry id</td>
 			<td>{{this.name}}</td>
 			<td>{{this.user}}</td>
 			<td>{{this.email}}</td>
 			<td>{{this.phone}}</td>
 			<td>{{this.date}}</td>
+			<td></td>
 		</tr>
 		{{/each}}
 	</tbody>
