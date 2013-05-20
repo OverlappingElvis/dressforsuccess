@@ -29,8 +29,19 @@ exports.findAll = function(req, res) {
 };
 
 exports.createUser = function(req, res) { 
-	if( req.params.id ) {
+	if( req.param('id') ) {
 		// we're doing an edit
+		db.collection('accounts', function(err, collection) {
+			collection.save({
+				_id: req.param('id'),
+				name: req.param('name'),
+				user: req.param('user'),
+				email: req.param('email'),
+				phone: req.param('phone'),
+			});
+		});
+		res.redirect('/admin');
+
 	}else{
 		account.addNewAccount({
 			name: req.param('name'),
